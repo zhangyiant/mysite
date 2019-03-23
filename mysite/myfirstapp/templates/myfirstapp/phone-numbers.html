@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>通讯录信息</title>
+  </head>
+  <body>
+    <h1>{{ contact.name }}<h1>
+    <h2>电话号码</h2>
+    <ol>
+        {% for phone_number in contact.phonenumber_set.all %}
+	<li>{{ phone_number.number }}</li>
+	{% endfor %}
+    </ol>
+  </body>
+</html>

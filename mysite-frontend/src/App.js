@@ -1,0 +1,60 @@
+import React, { Component } from 'react';
+import './App.css';
+import axios from 'axios';
+
+class ContactRow extends Component {
+    render() {
+        const contact = this.props.contact;
+        return (
+            <tr>
+                <td>{ contact.name }</td>
+                <td>{ contact.gender }</td>
+                <td>
+                    <ol>
+                        { contact.phoneNumbers.map(phoneNumber=>
+                            <li>{ phoneNumber }</li>)
+                        }
+                    </ol>
+                </td>
+            </tr>
+        );
+    }
+}
+
+class Contacts extends Component {
+    state = {
+        contacts: []
+    }
+    componentDidMount() {
+        axios.get('/myfirstapp/api/contact/')
+            .then(res => {
+                const contacts = res.data;
+                this.setState({ contacts });
+            });
+    }
+    render() {
+        return (
+            <table>
+                <tr>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>电话号码</th>
+                </tr>
+                { this.state.contacts.map(contact =>
+                    <ContactRow contact={ contact } />)
+                }
+            </table>);
+    }
+}
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Contacts />
+      </div>
+    );
+  }
+}
+
+export default App;

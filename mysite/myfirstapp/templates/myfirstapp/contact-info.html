@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <title>通讯录信息</title>
+  </head>
+  <body>
+    <h1>{{ contact.name }}</h1>
+    <h2>性别: {{contact.gender}}</h2>
+    <a href="{% url 'contact_phone_numbers' contact.id %}">
+        电话号码信息
+    </a>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>通讯录信息</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>姓名</th>
+        <th>性别</th>
+      </tr>
+      {% for contact in contacts %}
+      <tr>
+          <td>
+              <a href="{% url 'contact_info' contact.id %}">
+                  {{ contact.name }}
+              </a>
+          </td>
+        <td>{{ contact.gender }}</td>
+      </tr>
+      {% endfor %}
+  </body>
+</html>
