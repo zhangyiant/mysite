@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 
 class ContactRow extends Component {
     render() {
@@ -47,12 +49,22 @@ class Contacts extends Component {
     }
 }
 
+class MyTestPage extends Component {
+    render() {
+        return (
+            <div>
+                HelloWorld!
+            </div>);
+    }
+}
+
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Contacts />
-      </div>
+        <Router>
+            <Route path="/" exact component={ Contacts } />
+            <Route path="/mypage" component={ MyTestPage } />
+        </Router>
     );
   }
 }
