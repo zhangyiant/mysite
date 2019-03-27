@@ -9,7 +9,11 @@ class ContactRow extends Component {
         const contact = this.props.contact;
         return (
             <tr>
-                <td>{ contact.name }</td>
+                <td>
+                    <Link to={`/contact/${contact.id}`}>
+                        { contact.name }
+                    </Link>
+                </td>
                 <td>{ contact.gender }</td>
                 <td>
                     <ol>
