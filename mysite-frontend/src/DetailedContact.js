@@ -7,7 +7,7 @@ class DetailedContact extends Component {
         contact: null
     }
     componentDidMount() {
-        axios.get(`/myfirstapp/api/contact/${this.props.match.params.id}/`)
+        axios.get(`/api/contact/${this.props.match.params.id}/`)
             .then(res => {
                 const contact = res.data;
                 this.setState({ contact });

@@ -32,7 +32,7 @@ class Contacts extends Component {
         contacts: []
     }
     componentDidMount() {
-        axios.get('/myfirstapp/api/contact/')
+        axios.get('/api/contact/')
             .then(res => {
                 const contacts = res.data;
                 this.setState({ contacts });

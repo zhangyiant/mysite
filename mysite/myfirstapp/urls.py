@@ -8,11 +8,5 @@ urlpatterns = [
         name="contact_info"),
     path('<int:pk>/phone-numbers/',
         views.ContactPhoneNumbersView.as_view(),  
-        name="contact_phone_numbers"),
-    path('api/contact/',
-        views.ContactListAPIView.as_view(),
-        name="contact_list"),
-    path('api/contact/<int:pk>/',
-        views.ContactDetailAPIView.as_view(),
-        name="contact_detail")
+        name="contact_phone_numbers")
 ]
