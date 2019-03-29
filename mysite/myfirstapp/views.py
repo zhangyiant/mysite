@@ -21,7 +21,7 @@ class ContactPhoneNumbersView(generic.DetailView):
     model = Contact
     template_name = 'myfirstapp/phone-numbers.html'
 
-class ContactListAPIView(generics.ListAPIView):
+class ContactListCreateAPIView(generics.ListCreateAPIView):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
 
