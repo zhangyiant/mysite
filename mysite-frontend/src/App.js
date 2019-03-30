@@ -28,9 +28,31 @@ class ContactRow extends Component {
 }
 
 class Contacts extends Component {
-    state = {
-        contacts: []
+    constructor(props) {
+        super(props);
+        this.state = {
+            contacts: [],
+            isCreateInputShown: false
+        }
+        this.handleNewClick = this.handleNewClick.bind(this);
+        this.handleConfirmClick = this.handleConfirmClick.bind(this);
+        this.handleCancelClick = this.handleCancelClick.bind(this);
     }
+    handleNewClick() {
+        this.setState({
+            isCreateInputShown: true
+        });
+    }
+    handleConfirmClick() {
+        this.setState({
+            isCreateInputShown: false
+        });
+     }
+    handleCancelClick() {
+        this.setState({
+            isCreateInputShown: false
+        });
+     }
     componentDidMount() {
         axios.get('/api/contact/')
             .then(res => {
@@ -39,17 +61,39 @@ class Contacts extends Component {
             });
     }
     render() {
+        const isCreateInputShown = this.state.isCreateInputShown;
+        let buttons = null;
+        if (isCreateInputShown) {
+            buttons = (
+                <span>
+                    <button onClick={ this.handleConfirmClick }>
+                        确定
+                    </button>
+                    <button onClick={ this.handleCancelClick }>
+                        取消
+                    </button>
+                </span>
+            );
+        } else {
+            buttons = (
+                <button onClick={ this.handleNewClick }>
+                    新建
+                </button>);
+        }
         return (
-            <table>
-                <tr>
-                    <th>姓名</th>
-                    <th>性别</th>
-                    <th>电话号码</th>
-                </tr>
-                { this.state.contacts.map(contact =>
-                    <ContactRow contact={ contact } />)
-                }
-            </table>);
+            <div>
+                <table>
+                    <tr>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>电话号码</th>
+                    </tr>
+                    { this.state.contacts.map(contact =>
+                        <ContactRow contact={ contact } />)
+                    }
+                </table>
+                { buttons }
+            </div>);
     }
 }
 
