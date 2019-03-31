@@ -32,14 +32,21 @@ class Contacts extends Component {
         super(props);
         this.state = {
             contacts: [],
-            isCreateInputShown: false
+            isCreateInputShown: false,
+            newName: '',
+            newGender: ''
         }
         this.handleNewClick = this.handleNewClick.bind(this);
         this.handleConfirmClick = this.handleConfirmClick.bind(this);
         this.handleCancelClick = this.handleCancelClick.bind(this);
+
+        this.handleNewNameChange = this.handleNewNameChange.bind(this);
+        this.handleNewGenderChange = this.handleNewGenderChange.bind(this);
     }
     handleNewClick() {
         this.setState({
+            newName: '',
+            newGender: '',
             isCreateInputShown: true
         });
     }
@@ -47,12 +54,22 @@ class Contacts extends Component {
         this.setState({
             isCreateInputShown: false
         });
-     }
+    }
     handleCancelClick() {
         this.setState({
             isCreateInputShown: false
         });
-     }
+    }
+    handleNewNameChange(event) {
+        this.setState({
+            newName: event.target.value
+        });
+    }
+    handleNewGenderChange(event) {
+        this.setState({
+            newGender: event.target.value
+        });
+    }
     componentDidMount() {
         axios.get('/api/contact/')
             .then(res => {
@@ -63,6 +80,7 @@ class Contacts extends Component {
     render() {
         const isCreateInputShown = this.state.isCreateInputShown;
         let buttons = null;
+        let newInputs = null;
         if (isCreateInputShown) {
             buttons = (
                 <span>
@@ -73,6 +91,16 @@ class Contacts extends Component {
                         取消
                     </button>
                 </span>
+            );
+            newInputs = (
+                <tr>
+                    <td>
+                        <input type="text" value={this.state.newName} onChange={this.handleNewNameChange} />
+                    </td>
+                    <td>
+                        <input type="text" value={this.state.newGender} onChange={this.handleNewGenderChange} />
+                    </td>
+                </tr>
             );
         } else {
             buttons = (
@@ -91,6 +119,7 @@ class Contacts extends Component {
                     { this.state.contacts.map(contact =>
                         <ContactRow contact={ contact } />)
                     }
+                    {newInputs}
                 </table>
                 { buttons }
             </div>);
