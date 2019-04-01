@@ -51,8 +51,20 @@ class Contacts extends Component {
         });
     }
     handleConfirmClick() {
+        const name = this.state.newName;
+        const gender = this.state.newGender;
         this.setState({
             isCreateInputShown: false
+        });
+        axios.post('/api/contact/', {
+            name,
+            gender})
+        .then((response) => {
+            axios.get('/api/contact/')
+            .then(res => {
+                const contacts = res.data;
+                this.setState({ contacts });
+            });
         });
     }
     handleCancelClick() {
