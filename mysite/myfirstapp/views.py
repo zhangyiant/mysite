@@ -25,6 +25,6 @@ class ContactListCreateAPIView(generics.ListCreateAPIView):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
 
-class ContactDetailAPIView(generics.RetrieveUpdateAPIView):
+class ContactDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
