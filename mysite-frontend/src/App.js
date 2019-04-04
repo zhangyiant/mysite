@@ -22,6 +22,9 @@ class ContactRow extends Component {
                         }
                     </ol>
                 </td>
+                <td>
+                    <button>删除</button>
+                </td>
             </tr>
         );
     }
@@ -127,6 +130,7 @@ class Contacts extends Component {
                         <th>姓名</th>
                         <th>性别</th>
                         <th>电话号码</th>
+                        <th>操作</th>
                     </tr>
                     { this.state.contacts.map(contact =>
                         <ContactRow contact={ contact } />)
