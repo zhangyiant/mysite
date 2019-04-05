@@ -5,6 +5,13 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import DetailedContact from './DetailedContact';
 
 class ContactRow extends Component {
+    constructor(props) {
+        super(props);
+        this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    }
+    handleDeleteClick(e) {
+        axios.delete(`/api/contact/${this.props.contact.id}/`);
+    }
     render() {
         const contact = this.props.contact;
         return (
@@ -23,7 +30,9 @@ class ContactRow extends Component {
                     </ol>
                 </td>
                 <td>
-                    <button>删除</button>
+                    <button onClick={this.handleDeleteClick}>
+                        删除
+                    </button>
                 </td>
             </tr>
         );
