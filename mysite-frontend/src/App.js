@@ -10,7 +10,10 @@ class ContactRow extends Component {
         this.handleDeleteClick = this.handleDeleteClick.bind(this);
     }
     handleDeleteClick(e) {
-        axios.delete(`/api/contact/${this.props.contact.id}/`);
+        axios.delete(`/api/contact/${this.props.contact.id}/`)
+        .then(resp => {
+            this.props.onAfterDelete(this.props.contact.id);
+        });
     }
     render() {
         const contact = this.props.contact;
@@ -54,6 +57,8 @@ class Contacts extends Component {
 
         this.handleNewNameChange = this.handleNewNameChange.bind(this);
         this.handleNewGenderChange = this.handleNewGenderChange.bind(this);
+
+        this.handleAfterDelete = this.handleAfterDelete.bind(this);
     }
     handleNewClick() {
         this.setState({
@@ -94,7 +99,13 @@ class Contacts extends Component {
             newGender: event.target.value
         });
     }
+    handleAfterDelete(contactId) {
+        this.refreshContacts();
+    }
     componentDidMount() {
+        this.refreshContacts();
+    }
+    refreshContacts() {
         axios.get('/api/contact/')
             .then(res => {
                 const contacts = res.data;
@@ -142,7 +153,10 @@ class Contacts extends Component {
                         <th>操作</th>
                     </tr>
                     { this.state.contacts.map(contact =>
-                        <ContactRow contact={ contact } />)
+                        <ContactRow
+                            contact={contact}
+                            onAfterDelete={this.handleAfterDelete}
+                        />)
                     }
                     {newInputs}
                 </table>
