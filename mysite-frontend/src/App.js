@@ -33,6 +33,9 @@ class ContactRow extends Component {
                     </ol>
                 </td>
                 <td>
+                    <button>
+                        修改
+                    </button>
                     <button onClick={this.handleDeleteClick}>
                         删除
                     </button>
