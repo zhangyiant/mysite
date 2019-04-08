@@ -7,7 +7,15 @@ import DetailedContact from './DetailedContact';
 class ContactRow extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isModifying: false,
+            newName: '',
+            newGender: ''
+        }
         this.handleDeleteClick = this.handleDeleteClick.bind(this);
+        this.handleModifyClick = this.handleModifyClick.bind(this);
+        this.handleNewNameChange = this.handleNewNameChange.bind(this);
+        this.handleNewGenderChange = this.handleNewGenderChange.bind(this);
     }
     handleDeleteClick(e) {
         axios.delete(`/api/contact/${this.props.contact.id}/`)
@@ -15,16 +23,80 @@ class ContactRow extends Component {
             this.props.onAfterDelete(this.props.contact.id);
         });
     }
+    handleModifyClick() {
+        this.setState(
+            {
+                isModifying: true,
+                newName: this.props.contact.name,
+                newGender: this.props.contact.gender
+            }
+        );
+        return;
+    }
+    handleNewNameChange(event) {
+        this.setState({
+            newName: event.target.value
+        });
+        return;
+    }
+    handleNewGenderChange(event) {
+        this.setState({
+            newGender: event.target.value
+        });
+        return;
+    }
     render() {
         const contact = this.props.contact;
+        const isModifying = this.state.isModifying;
+        let nameCell;
+        let genderCell;
+        let operationCell;
+        if (isModifying) {
+            nameCell = (
+                <input type="text" value={this.state.newName} onChange={this.handleNewNameChange} />);
+        } else {
+            nameCell = (
+                <Link to={`/contact/${contact.id}`}>
+                    { contact.name }
+                </Link>);
+        }
+        if (isModifying) {
+            genderCell = (
+                <input type="text" value={this.state.newGender} onChange={this.handleNewGenderChange} />);
+        } else {
+            genderCell = (
+                <span>{contact.gender}</span>
+            );
+        }
+        if (isModifying) {
+            operationCell = (
+                <span>
+                    <button>
+                        确定
+                    </button>
+                    <button>
+                        取消
+                    </button>
+                </span>);
+        } else {
+            operationCell = (
+                <span>
+                    <button onClick={this.handleModifyClick}>
+                        修改
+                    </button>
+                    <button onClick={this.handleDeleteClick}>
+                        删除
+                    </button>
+                </span>);
+        }
         return (
             <tr>
                 <td>
-                    <Link to={`/contact/${contact.id}`}>
-                        { contact.name }
-                    </Link>
+                    {nameCell}
                 </td>
-                <td>{ contact.gender }</td>
+                <td>
+                    {genderCell}
+                </td>
                 <td>
                     <ol>
                         { contact.phoneNumbers.map(phoneNumber=>
@@ -32,13 +104,8 @@ class ContactRow extends Component {
                         }
                     </ol>
                 </td>
+                    {operationCell}
                 <td>
-                    <button>
-                        修改
-                    </button>
-                    <button onClick={this.handleDeleteClick}>
-                        删除
-                    </button>
                 </td>
             </tr>
         );
