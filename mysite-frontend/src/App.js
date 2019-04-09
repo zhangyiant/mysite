@@ -16,6 +16,23 @@ class ContactRow extends Component {
         this.handleModifyClick = this.handleModifyClick.bind(this);
         this.handleNewNameChange = this.handleNewNameChange.bind(this);
         this.handleNewGenderChange = this.handleNewGenderChange.bind(this);
+
+        this.handleConfirmClick = this.handleConfirmClick.bind(this);
+        this.handleCancelClick = this.handleCancelClick.bind(this);
+    }
+    handleConfirmClick() {
+        const name = this.state.newName;
+        const gender = this.state.newGender;
+        axios.put(`/api/contact/${this.props.contact.id}/`, {
+            name,
+            gender})
+        .then((response) => {
+            this.props.onAfterModify(this.props.contact.id);
+        });
+        this.setState({isModifying: false});
+    }
+    handleCancelClick() {
+        this.setState({isModifying: false});
     }
     handleDeleteClick(e) {
         axios.delete(`/api/contact/${this.props.contact.id}/`)
@@ -71,10 +88,10 @@ class ContactRow extends Component {
         if (isModifying) {
             operationCell = (
                 <span>
-                    <button>
+                    <button onClick={this.handleConfirmClick}>
                         确定
                     </button>
-                    <button>
+                    <button onClick={this.handleCancelClick}>
                         取消
                     </button>
                 </span>);
@@ -129,6 +146,7 @@ class Contacts extends Component {
         this.handleNewGenderChange = this.handleNewGenderChange.bind(this);
 
         this.handleAfterDelete = this.handleAfterDelete.bind(this);
+        this.handleAfterModify = this.handleAfterModify.bind(this);
     }
     handleNewClick() {
         this.setState({
@@ -170,6 +188,9 @@ class Contacts extends Component {
         });
     }
     handleAfterDelete(contactId) {
+        this.refreshContacts();
+    }
+    handleAfterModify(contactId) {
         this.refreshContacts();
     }
     componentDidMount() {
@@ -226,6 +247,7 @@ class Contacts extends Component {
                         <ContactRow
                             contact={contact}
                             onAfterDelete={this.handleAfterDelete}
+                            onAfterModify={this.handleAfterModify}
                         />)
                     }
                     {newInputs}
