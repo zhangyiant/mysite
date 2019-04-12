@@ -114,13 +114,14 @@ class ContactRow extends Component {
                 </td>
                 <td>
                     <ol>
-                        { contact.phoneNumbers.map(phoneNumber=>
-                            <li>{ phoneNumber }</li>)
+                        { contact.phoneNumbers.map(
+                            (phoneNumber, index)=>
+                                <li key={index}>{ phoneNumber }</li>)
                         }
                     </ol>
                 </td>
-                    {operationCell}
                 <td>
+                    {operationCell}
                 </td>
             </tr>
         );

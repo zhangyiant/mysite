@@ -110,20 +110,25 @@ class Contacts extends Component {
         return (
             <div>
                 <table>
-                    <tr>
-                        <th>姓名</th>
-                        <th>性别</th>
-                        <th>电话号码</th>
-                        <th>操作</th>
-                    </tr>
-                    { this.state.contacts.map(contact =>
-                        <ContactRow
-                            contact={contact}
-                            onAfterDelete={this.handleAfterDelete}
-                            onAfterModify={this.handleAfterModify}
-                        />)
-                    }
-                    {newInputs}
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>电话号码</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { this.state.contacts.map(contact =>
+                            <ContactRow
+                                key={contact.id}
+                                contact={contact}
+                                onAfterDelete={this.handleAfterDelete}
+                                onAfterModify={this.handleAfterModify}
+                            />)
+                        }
+                        {newInputs}
+                    </tbody>
                 </table>
                 { buttons }
             </div>);
