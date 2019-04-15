@@ -17,3 +17,8 @@ class MyTableName(models.Model):
         db_table = "my_abc_table"
     my_field = models.CharField(max_length=200)
 
+class AutoIDTable(models.Model):
+    my_field = models.CharField(max_length=200)
+
+class NoAutoIDTable(models.Model):
+    my_field = models.CharField(max_length=200, primary_key=True)
