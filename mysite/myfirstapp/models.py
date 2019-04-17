@@ -22,3 +22,9 @@ class AutoIDTable(models.Model):
 
 class NoAutoIDTable(models.Model):
     my_field = models.CharField(max_length=200, primary_key=True)
+
+class NullOptionTable(models.Model):
+    my_field = models.CharField(max_length=200, null=True)
+
+class NoNullOptionTable(models.Model):
+    my_field = models.CharField(max_length=200, null=False)
