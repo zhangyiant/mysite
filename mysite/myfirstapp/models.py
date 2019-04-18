@@ -28,3 +28,9 @@ class NullOptionTable(models.Model):
 
 class NoNullOptionTable(models.Model):
     my_field = models.CharField(max_length=200, null=False)
+
+class BlankOptionTable(models.Model):
+    my_field = models.CharField(max_length=200, blank=True)
+
+class NoBlankOptionTable(models.Model):
+    my_field = models.CharField(max_length=200, blank=False)
