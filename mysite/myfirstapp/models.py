@@ -34,3 +34,10 @@ class BlankOptionTable(models.Model):
 
 class NoBlankOptionTable(models.Model):
     my_field = models.CharField(max_length=200, blank=False)
+
+class ChoicesOptionTable(models.Model):
+    my_field = models.CharField(max_length=200,
+            choices=(
+                ('1', "Apple"),
+                ('2', "Banana"),
+                ('3', "Pear")))
