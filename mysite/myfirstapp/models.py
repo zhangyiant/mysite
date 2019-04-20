@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 
 # Create your models here.
@@ -41,3 +42,14 @@ class ChoicesOptionTable(models.Model):
                 ('1', "Apple"),
                 ('2', "Banana"),
                 ('3', "Pear")))
+
+class DefaultStringTable(models.Model):
+    my_field = models.CharField(max_length=200,
+            default="HelloWorld")
+
+def my_callable_object():
+    return str(datetime.now())
+    
+class DefaultCallableOptionTable(models.Model):
+    my_field = models.CharField(max_length=200,
+            default=my_callable_object)
