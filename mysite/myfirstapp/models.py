@@ -38,18 +38,22 @@ class NoBlankOptionTable(models.Model):
 
 class ChoicesOptionTable(models.Model):
     my_field = models.CharField(max_length=200,
-            choices=(
-                ('1', "Apple"),
-                ('2', "Banana"),
-                ('3', "Pear")))
+        choices=(
+            ('1', "Apple"),
+            ('2', "Banana"),
+            ('3', "Pear")))
 
 class DefaultStringTable(models.Model):
     my_field = models.CharField(max_length=200,
-            default="HelloWorld")
+        default="HelloWorld")
 
 def my_callable_object():
     return str(datetime.now())
     
 class DefaultCallableOptionTable(models.Model):
     my_field = models.CharField(max_length=200,
-            default=my_callable_object)
+        default=my_callable_object)
+
+class HelpTextOptionTable(models.Model):
+    my_field = models.CharField(max_length=200,
+        help_text="This is my help text.")
