@@ -57,3 +57,8 @@ class DefaultCallableOptionTable(models.Model):
 class HelpTextOptionTable(models.Model):
     my_field = models.CharField(max_length=200,
         help_text="This is my help text.")
+    
+class PrimaryKeyOptionTable(models.Model):
+    my_field = models.CharField(max_length=200,
+        primary_key=True)
+
