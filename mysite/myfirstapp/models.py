@@ -62,3 +62,7 @@ class PrimaryKeyOptionTable(models.Model):
     my_field = models.CharField(max_length=200,
         primary_key=True)
 
+class UniqueOptionTable(models.Model):
+    my_field = models.CharField(max_length=200,
+        unique=True) 
+
